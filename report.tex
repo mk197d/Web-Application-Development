@@ -1,0 +1,208 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage[rightcaption]{sidecap}
+\usepackage{verbatim}
+\usepackage [ a4paper , hmargin =1.2 in , bottom =1.5 in ] { geometry }
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+
+
+\title{Project Report \\ Web Coding
+         \\ Minesweeper Cricket}
+\author{Mayank Kumar}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\clearpage
+\section{Introduction}
+In this report, I will describe the code implementation for the Minesweeper Cricket game. The game combines elements of Minesweeper and Cricket, where the player needs to reveal blocks on a grid and avoid fielders. The objective is to score runs by revealing safe blocks. The implementation involves HTML, CSS, and JavaScript to create the game logic and user interface.
+
+\section{Design and Implementation}
+The game is designed using HTML and CSS for the user interface, and JavaScript for the game logic. The main HTML structure includes a title, game settings, score display, game board, and script reference.
+
+
+The CSS code is responsible for styling the game elements, including the background image, font, colors, and grid layout.
+
+
+The JavaScript code handles the game functionality. It initializes variables, creates the game board, distributes fielders and power-ups randomly, and handles block clicks to reveal the content. It also manages the scoring and game-over conditions.
+
+\section{Customization}
+To enhance the game experience, several customizations can be implemented. These include:
+\begin{itemize}
+  \item Allowing the player to choose different grid sizes. The player can choose whether to play on a 6*6 board or a 7*7 board.
+  \item Points Galore {PowerUp1} - If the player clicks on this power up block any random points between 1 to 3 are added to the total score.
+  \item Who is there? {PowerUp2} - On clicking this power up, all the blocks of the game board are revealed for a time period of 1.5 seconds.
+\end{itemize}
+
+\section{Code Overview}
+\subsection{HTML Code}
+The HTML code represents the structure and layout of the Minesweeper Cricket game interface. Let's break down the different components:
+\begin{enumerate}
+
+\item  \texttt{<!DOCTYPE html>}: This is the document type declaration, specifying that the document is an HTML5 document.
+
+\item  \texttt{<html>}: The root element of the HTML document.
+
+\item  \texttt{<head>}: Contains meta-information about the document, such as the title and external CSS file link.
+
+\item  \texttt{<link rel="stylesheet" type="text/css" href="style.css">}: This line links the external CSS file named "style.css" to the HTML document, allowing the styling rules defined in the CSS file to be applied to the HTML elements.
+\item \texttt{<body>}: Contains the visible content of the web page.
+\item  \texttt{<h1>}: Displays the heading "Minesweeper Cricket" at the top of the page.
+
+\item \texttt{<div class="settings">}: Represents a container for the game settings elements.
+\begin{itemize}
+   
+
+   \item \texttt{<label for="gridSize">}: Displays the label "Grid Size:".
+   \item  \texttt{<select id="gridSize">}: Creates a dropdown menu for selecting the grid size.
+     \item  \texttt{<option value="6">6x6</option>}: Represents an option in the dropdown menu with a value of 6, indicating a 6x6 grid size.
+     \item  \texttt{<option value="7">7x7</option>}: Represents an option in the dropdown menu with a value of 7, indicating a 7x7 grid size.
+   \item  \texttt{<button id="startBtn">Start Game</button>}: Creates a button with the ID "startBtn" to start the game.
+\end{itemize}
+\item  \texttt{<div id="scoreboard">}: Displays the current score of the player.
+
+   - "Score: ": Text indicating the purpose of the element.
+   - `<span id="score">0</span>`: Represents a placeholder for the score value. Initially set to 0.
+
+\item  \texttt{<div id="gameboard"></div>}: Represents the game board container where the blocks and gameplay will be displayed.
+
+\item  \texttt{<script src="script.js"></script>}: Loads the external JavaScript file named "script.js" into the HTML document, which contains the game logic and functionality.
+\end{enumerate}
+This HTML code sets up the basic structure and elements of the Minesweeper Cricket game, including the game title, game settings, score display, and the game board container. The CSS file is linked to provide styling rules for the elements, while the JavaScript file is included to handle the game logic and user interactions.
+\subsection{Java Script Code}
+\begin{enumerate}
+    \item Event Listener:
+
+document.addEventListener("DOMContentLoaded", function () { ... });: Listens for the "DOMContentLoaded" event, which indicates that the HTML document has been completely loaded and parsed. This ensures that the JavaScript code executes after the HTML content is ready.
+\item Variable Declarations:
+\begin{itemize}
+
+
+    \item const gameboard = document.getElementById("gameboard");: Retrieves the gameboard element from the HTML document.
+    \item const scoreElement = document.getElementById("score");: Retrieves the score element from the HTML document.
+    \item const startBtn = document.getElementById("startBtn");: Retrieves the start button element from the HTML document.
+    \item const gridSizeSelect = document.getElementById("gridSize");: Retrieves the grid size select element from the HTML document.
+    \item let gridSize = parseInt(gridSizeSelect.value);: Initializes the gridSize variable with the selected grid size value converted to an integer.
+    \item let fielderCount = 11;: Initializes the fielderCount variable with the number of fielders.
+    \item let score = 0;: Initializes the score variable to keep track of the player's score.
+\end{itemize}
+\item Function Declarations:
+\begin{itemize}
+
+
+    \item createGameboard(): Creates the gameboard grid dynamically based on the selected grid size.
+    \item getRandomInt(max): Generates a random integer between 0 and the specified max value.
+    \item distributeFielders(): Randomly distributes the fielders on the gameboard.
+    \item distributePowerUp(): Randomly distributes Points Galore power up on the gameboard.
+    \item revealBlock(row, col): Handles the block click event and reveals the clicked block based on its content (fielder, power-ups, or empty block).
+    \item revealAllBlocks(): Reveals all the blocks on the gameboard, highlighting the fielders and power-ups.
+    \item undoReveal() : To hide the blocks which have been revealed by the Who is there? power up after a specified interval.
+    \item endGame(): Displays a game over message with the final score and resets the game.
+    \item resetGame(): Resets the game by resetting the score, creating a new gameboard, and distributing fielders and power-ups.
+\end{itemize}
+The functions which are used to reveal or hide a block make use of the classList by including or excluding a particular event for which the graphics have been included in the CSS file. \\ The number of power ups in each game is also random because the function which distributes the second power up can also allot the second power up to the blocks on which the first power up has been already alloted.
+\item Event Listeners:
+\begin{itemize}
+
+
+    \item startBtn.addEventListener("click", function () { ... });: Listens for the click event on the start button and triggers the resetGame function.
+    \item block.addEventListener("click", function () { ... });: Listens for the click event on each block element and triggers the revealBlock function.
+\end{itemize}
+\item Initialization:
+\begin{itemize}
+
+
+    \item createGameboard(): Initializes the gameboard by calling the createGameboard function.
+    \item distributeFielders(): Distributes the fielders on the gameboard by calling the distributeFielders function.
+    \item distributePowerUp(): Distributes the power-ups on the gameboard by calling the distributePowerUp function.
+\end{itemize}
+\end{enumerate}
+\subsection{CSS Code}
+The CSS code defines the styles and visual appearance of the Minesweeper Cricket game interface. Let's break down the different CSS rules:
+\begin{enumerate}
+    
+
+\item  body: Applies styling rules to the `<body>` element.
+\begin{itemize}
+    
+
+   \item  \texttt{background-image: url('BackImage2.jpg');}: Sets the background image of the body to "BackImage2.jpg".
+   \item  `background-repeat: no-repeat;`: Specifies that the background image should not repeat.
+   \item  `background-size: 100%;`: Sets the background image size to cover the entire body.
+   \item  `background-color: ;`: Sets the background color of the body to a light gray.
+   \item  `font-family: Arial, sans-serif;`: Specifies the font family to be used for the text content.
+\end{itemize}
+\item `h1`: Applies styling rules to the `<h1>` element.
+\item  `.settings`: Applies styling rules to the elements with the class "settings".
+\begin{itemize}
+    
+
+   \item  text-align: center;: Centers the text within the container.
+   \item margin-bottom: 20px; : Adds a bottom margin of 20 pixels to create spacing.
+\end{itemize}
+\item  `scoreboard`: Applies styling rules to the element with the ID "scoreboard".
+\begin{itemize}
+   
+
+    \item  `text-align: center;`: Centers the text within the element.
+    \item `font-size: 24px;`: Sets the font size to 24 pixels.
+    \item `margin-bottom: 20px;`: Adds a bottom margin of 20 pixels to create spacing.
+\end{itemize}
+\item  `gameboard`: Applies styling rules to the element with the ID "gameboard".
+\begin{itemize}
+     
+
+   \item `width: 400px;`: Sets the width of the game board container to 400 pixels.
+   \item `margin: 0 auto;`: Centers the game board horizontally within its parent container.
+   \item `display: grid;`: Uses CSS Grid layout to arrange the blocks within the game board.
+\end{itemize}
+\item  `.block`: Applies styling rules to elements with the class "block".
+\begin{itemize}
+     
+
+   \item `border: 1px solid ;`: Sets a 1-pixel solid border with a black color.
+   \item `padding: 10px;`: Adds a 10-pixel padding around the content within the block.
+   \item `text-align: center;`: Centers the text within the block.
+   \item `font-size: 18px;`: Sets the font size to 18 pixels.
+   \item `cursor: pointer;`: Changes the mouse cursor to a pointer when hovering over the block.
+   \item `background-color: ;`: Sets the background color of the block to white.
+   \item `transition: background-color 0.2s;`: Specifies a smooth transition effect when changing the background color.
+\end{itemize}
+\item  .block.{className}: Applies styling rules to blocks with the class "className".
+
+   background-color: ;: Sets the background color of the clicked block to specified colour
+
+\end{enumerate}
+\section{Results and Discussion}
+Upon running the code, the Minesweeper Cricket game is displayed with the specified customizations. The player can interact with the game board by clicking on the blocks to reveal their content. The score is updated accordingly, and the game ends when a fielder is revealed.
+
+During testing, I observed that the game provides an engaging experience, combining the strategic element of Minesweeper with the excitement of Cricket. The customization options allow for different gameplay variations and increased replay value.
+
+\section{Conclusion}
+The Minesweeper Cricket game implementation successfully combines the mechanics of Minesweeper and Cricket, creating an enjoyable and interactive experience. The HTML, CSS, and JavaScript code work together to provide the game logic and user interface. The customizations further enhance the gameplay, adding variety and challenges. Future enhancements could include additional features and game modes to further enrich the player experience.
+\bibliography{report}
+\bibliographystyle{alpha}
+\cite{WEBSITE:1}
+\cite{WEBSITE:2}
+\cite{WEBSITE:3}
+\cite{WEBSITE:4}
+\cite{WEBSITE:5}
+\cite{WEBSITE:6}
+\end{document}
